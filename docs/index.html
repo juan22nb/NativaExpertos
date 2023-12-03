@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>NativaExpertos</title>
+</head>
+
+<body>
+    <div id="interfaz1">
+        <!-- Contenido de la interfaz 1 -->
+        <div id="menu-btn">&#9776; MENÚ</div>
+        <div id="menu1">
+            <button class="menu-item" onclick="mostrarInterfaz2()">Mi Perfil</button>
+            <button class="menu-item" onclick="mostrarInterfaz4()">Rendimiento</button>
+            <button class="menu-item" onclick="mostrarInterfaz5()">Ayuda</button>
+            <button class="menu-item" onclick="confirmarSalir()">Salir</button>
+        </div>
+        <div id="titulo">NativaExpertos</div>
+
+        <div class="botones-container">
+            <div class="boton" onclick="mostrarInterfaz3()">
+                <img src="./img/crea_tu_contenido.png" alt="Crea-tu-contenido">
+                <p>CREA TU CONTENIDO</p>
+            </div>
+
+            <div class="boton" onclick="mostrarInterfaz8()">
+                <img src="./img/biblioteca.png" alt="Biblioteca-multimedia">
+                <p>BIBILIOTECA MULTIMEDIA</p>
+            </div>
+
+            <div class="boton" onclick="mostrarInterfaz7()">
+                <img src="./img/colaboracion.png" alt="Colaboración-y-comentarios">
+                <p>COLABORACION Y COMENTARIOS</p>
+            </div>
+
+            <div class="boton" onclick="mostrarInterfaz6()">
+                <img src="./img/programacion.png" alt="Programación-de-contenido">
+                <p>PROGRAMACION DE CONTENIDO</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="interfaz2" style="display: none;">
+        <!-- Contenido de la interfaz 2 -->
+        <div class="div-arriba">
+            <div class="volver2" onclick="volverInterfaz2()">
+                &#8592 Volver
+            </div>
+        </div>
+        <div class="div-usuario">
+            <input type="file" accept="image/*" id="pefil-usuario" style="display: none;"
+                onchange="mostrarImagenUsuario(this)">
+            <img src="./img/foto-usuario.png" alt="USUARIO" onclick="document.getElementById('pefil-usuario').click();">
+            <div class="div-usuario-content">
+                <input type="text" placeholder="USUARIO" id="input-usuario" disabled>
+                <button class="diagonal-button" onclick="mostrarPerfil()" id="diagonal-button">Ver</button>
+            </div>
+            <div class="divisora"></div>
+        </div>
+        <div class="divisora-vertical-2"></div>
+        <div class="divisora-horizontal-2"></div>
+        <div class="label-perfil">PERFIL</div>
+        <div class="label-informacion">INFORMACIÓN BÁSICA</div>
+        <div class="botones-perfil-2" style="display: none;">
+            <button onclick="mostrarMuro()">MURO</button>
+            <button onclick="mostrarGrupos()">GRUPOS</button>
+            <button onclick="mostrarMultimedia()">FOTOS</button>
+            <button id="btn-amigos">AMIGOS</button>
+            <button onclick="mostrarForos()">FOROS</button>
+        </div>
+
+        <div class="inputs-informacion-2" style="display: none;">
+            <input type="text" pattern="[A-Z]" alt="" autocomplete="off" placeholder="NOMBRES" id="input-nombres-2"
+                style="text-transform: uppercase;" required>
+            <input type="text" placeholder="APELLIDOS" autocomplete="off" id="input-apellidos-2"
+                style="text-transform: uppercase;" required>
+            <input type="text" placeholder="OCUPACIÓN" style="text-transform: uppercase;" required>
+            <input type="email" placeholder="CORREO" style="text-transform: uppercase;" required>
+            <input type="tel" pattern="[0-9]" minlength="10" placeholder="NÚMERO" required>
+        </div>
+        <div class="Muro" style="display: none;">
+            <div class="close-Muro" id="close-Muro" onclick="cerrarMuro()">&#10006;</div>
+            <form id="muroForm">
+                <label for="contenidoPublicacion">Nueva Publicación:</label>
+                <input type="text" id="contenidoPublicacion" name="contenidoPublicacion" autocomplete="off" required>
+
+                <button type="button" onclick="agregarPublicacion()">Agregar Publicación</button>
+            </form>
+
+            <div id="publicaciones">
+                <!-- Aquí se mostrarán las publicaciones existentes -->
+            </div>
+        </div>
+        <div class="grupos" style="display: none;">
+            <div class="close-grupos" id="close-grupos" onclick="cerrargrupos()">&#10006;</div>
+            <form id="formularioGrupo">
+                <label for="nombreGrupo">Nombre del Grupo:</label>
+                <input type="text" id="nombreGrupo" name="nombreGrupo" autocomplete="off" required>
+
+                <label for="descripcionGrupo">Descripción del Grupo:</label>
+                <textarea id="descripcionGrupo" name="descripcionGrupo" rows="4" required></textarea>
+
+                <label for="tipoGrupo">Tipo de Grupo:</label>
+                <select id="tipoGrupo" name="tipoGrupo" required>
+                    <option value="publico">Público</option>
+                    <option value="privado">Privado</option>
+                </select>
+
+                <button type="button" id="crear-grupo" onclick="mostrarAlerta()">Crear</button>
+            </form>
+        </div>
+        <div id="menu-amigos">
+            <div id="usuario-nombre">Desconocido</div>
+            <div id="linea-amigos">Mis amigos</div>
+            <div class="agregar-buscar">
+                <div class="agregar-amigos" onclick="mostrarInput('agregar')">
+                    <img src="./img/agregar-amigos.png" alt="">
+                </div>
+                <div class="buscar-amigos" onclick="mostrarInput('buscar')">
+                    <img src="./img/buscar-amigos.png" alt="">
+                </div>
+            </div>
+            <div class="input-agregar-buscar" id="input-agregar" style="display: none;">
+                <input type="text" placeholder="Nombre a agregar" style="text-transform: uppercase;"
+                    onkeypress="agregarAmigo(event)">
+            </div>
+            <div class="input-agregar-buscar" id="input-buscar" style="display: none;">
+                <input type="text" placeholder="Buscar personas" style="text-transform: uppercase;"
+                    oninput="buscarAmigos()">
+            </div>
+        </div>
+        <div class="foros" style="display: none;">
+            <div class="close-foros" id="close-foros" onclick="cerrarForos()">&#10006;</div>
+            <form id="forosForm">
+                <label for="nombreUsuario">Nombre:</label>
+                <input type="text" id="nombreUsuario" name="nombreUsuario" autocomplete="off" required>
+
+                <label for="tituloMensaje">Título del foro:</label>
+                <input type="text" id="tituloMensaje" name="tituloMensaje" autocomplete="off" required>
+
+                <label for="contenidoMensaje">Contenido del foro:</label>
+                <textarea id="contenidoMensaje" name="contenidoMensaje" rows="4" required></textarea>
+
+                <button type="button" onclick="publicarMensaje()">Publicar Mensaje</button>
+            </form>
+            <div id="mensajess">
+                <!-- Los mensajes se mostrarían aquí -->
+            </div>
+        </div>
+    </div>
+
+    <div id="interfaz3" style="display: none;">
+        <!-- Contenido de la interfaz 3 -->
+
+        <div class="agregar-multimedia">
+            <div class="volver3" onclick="volverInterfaz3()">&#8592 Volver</div>
+            <input type="file" accept="image/*" id="agregar-fotos" style="display: none;"
+                onchange="agregarMultimedia('agregar-fotos')">
+            <img src="./img/icono-agregar-fotos.png" alt="agregar-fotos" onclick="abrirInput('agregar-fotos')">
+            <input type="file" accept="video/*" id="agregar-videos" style="display: none;"
+                onchange="agregarMultimedia('agregar-videos')">
+            <img src="./img/icono-agregar-videos.png" alt="agregar-videos" onclick="abrirInput('agregar-videos')">
+        </div>
+        <div class="container-centro">
+            <div id="container-multimedia" class="container-multimedia" draggable="true"
+                ondragstart="handleDragStart(event)">
+                <div id="boton-play">Agregar plantillas</div>
+            </div>
+            <div class="editar-multimedia">
+                <img src="./img/icono-editar.png" alt="Editar">
+                <input type="file" accept="Audio/*" id="agregar-audio" style="display: none;"
+                    onchange="agregarMultimedia('agregar-audio')">
+                <img src="./img/icono-audio.png" alt="Audio" onclick="abrirInput('agregar-audio')">
+                <img src="./img/icono-texto.png" alt="Texto" onclick="mostrarTexto()">
+                <img src="./img/icono-superposicion.png" alt="superposicion" id="superposicion">
+                <img src="./img/icono-efectos.png" alt="Efectos" onclick="mostrarEfectos()">
+                <img src="./img/icono-relacion.png" alt="Relacion" id="relacion">
+            </div>
+        </div>
+        <div class="guardar-calidad">
+            <div class="calidad">1080P</div>
+            <img src="./img/icono-guardar.png" alt="Guardar" id="guardar-multimedia" onclick="guardarContenido()">
+        </div>
+        <div class="efectos" style="display: none;">
+            <div class="efecto" style="background-color: #000;" onclick="cambiarColor('black')"></div>
+            <div class="efecto" style="background-color: #ff0000;" onclick="cambiarColor('red')"></div>
+            <div class="efecto" style="background-color: #00ff00;" onclick="cambiarColor('green')"></div>
+            <div class="efecto" style="background-color: #0000ff;" onclick="cambiarColor('blue')"></div>
+            <div class="efecto" style="background-color: #ffff;" onclick="cambiarColor('white')"></div>
+        </div>
+    </div>
+
+    <div id="interfaz4" style="display:none;">
+        <!-- Contenido de la interfaz 4 -->
+        <div class="color-azul">
+            <div class="titulo-interfaz4">Rendimiento</div>
+            <div class="volver4" onclick="volverInterfaz4()">&#8592 Volver</div>
+        </div>
+        <div class="rendimientos">
+
+            <div class="circulo1">
+                <div class="circulo" id="circulo1">
+                    <div class="numero" id="numero1">0%</div>
+                </div>
+                #1
+            </div>
+            <div class="circulo2">
+                <div class="circulo" id="circulo2">
+                    <div class="numero" id="numero2">0%</div>
+                </div>
+                #2
+            </div>
+            <div class="circulo3">
+                <div class="circulo" id="circulo3">
+                    <div class="numero" id="numero3">0%</div>
+                </div>
+                #3
+            </div>
+        </div>
+    </div>
+
+    <div id="interfaz5" style="display: none;">
+        <!-- Contenido de la interfaz 5 -->
+
+        <div class="titulo-volver8">
+            <div class="titulo-interfaz5">AYUDA</div>
+            <div class="volver5" onclick="volverInterfaz5()">&#8592; Volver</div>
+        </div>
+
+        <div class="linea-divisoria alta"></div>
+        <div class="enlaces-container">
+            <a href="#" id="contacto" class="enlace-comun" onclick="mostrarContacto()">Contacto</a>
+            <a href="#" id="contactar-experto" class="enlace-comun" onclick="mostrarExperto()">Contactar un experto</a>
+            <a href="#" id="centro-ayuda" class="enlace-comun" onclick="mostrarDocumentacion()">Centro de ayuda</a>
+        </div>
+        <div class="enlace-contacto" style="display: none;">
+            <div class="close-icon" id="close-contacto">&#10006;</div>
+            <h2>Contacto de Soporte</h2>
+            <form id="formularioContacto">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" autocomplete="off" required>
+
+                <label for="correo">Correo Electrónico:</label>
+                <input type="email" id="correo" name="correo" autocomplete="off" required>
+
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+
+                <button type="button" onclick="enviarMensaje()">Enviar Mensaje</button>
+            </form>
+        </div>
+        <div class="enlace-experto" style="display: none;">
+            <div class="close-icon" id="close-experto">&#10006;</div>
+            <h1>Contactar un Experto</h1>
+            <h4>Selecciona un experto y envía tu mensaje:</h4>
+            <label for="nombre-experto">Nombre:</label>
+            <input type="text" id="nombre-experto" autocomplete="off" required>
+            <label for="expertos">Expertos:</label>
+            <select id="expertos" required>
+                <option value="" disabled selected>Selecciona un Experto</option>
+                <option value="diseñador gráfico">Diseñador Gráfico</option>
+                <option value="editor de video">Editor de Video</option>
+                <option value="experto en marketing digital">Experto en Marketing Digital</option>
+                <option value="especialista en contenido">Especialista en Contenido</option>
+                <option value="analista de datos">Analista de Datos</option>
+                <option value="asesor de publicidad nativa">Asesor de Publicidad Nativa</option>
+            </select>
+            <label for="mensaje-experto">Mensaje:</label>
+            <textarea id="mensaje-experto" required></textarea>
+            <button type="button" onclick="enviarMensajeExperto()">Enviar Mensaje</button>
+        </div>
+
+        <div class="documentacion-centro-ayuda" style="display: none;">
+            <div class="close-icon" id="close-centro">&#10006;</div>
+            <ul>
+                <h1>Centro de ayuda</h1>
+                <li>
+                    <h1>Crea tu contenido</h1>
+                    <ul>
+                        <li>
+                            <h3>Problemas al cargar videos.</h3>
+                        </li>
+                        <li>
+                            <h4>Posible solución:</h4>
+                            <p>Asegúrate de que los videos cumplen con los requisitos de formato y tamaño. Intenta cargar un video más pequeño para probar. Si el problema persiste, consulta la guía desolución de problemas específica para la carga de videos.</p>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <h1>Colaboración y Comentarios</h1>
+                    <ul>
+                        <li>
+                            <h3>No puedo enviar mensajes en el chat.</h3>
+                        </li>
+                        <li>
+                            <h4>Posible solución:</h4>
+                            <p>Verifica tu conexión a Internet y asegúrate de que no haya restricciones en tu red. Si elproblema persiste, intenta reiniciar tu navegador o prueba en otro dispositivo.</p>
+                        </li>
+                        <li>
+                            <h3>Los emojis no se muestran correctamente.</h3>
+                        </li>
+                        <li>
+                            <h4>Posible solución:</h4>
+                            <p>Asegúrate de estar utilizando la última versión de la aplicación. Si los emojis siguensin mostrarse correctamente, consulta la guía de solución de problemas específica para emojis.</p>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <h1>Biblioteca Multimedia</h1>
+                    <ul>
+                        <li>
+                            <h3>No se muestran todas mis fotos.</h3>
+                        </li>
+                        <li>
+                            <h4>Posible solución:</h4>
+                            <p>Asegúrate de que las fotos estén cargadas correctamente y que tu conexión a Internet sea estable. Si el problema persiste, intenta recargar la página o cerrar y volver a abrir la aplicación.</p>
+                        </li>
+                        <li>
+                            <h3>No puedo organizar mis fotos en álbumes.</h3>
+                        </li>
+                        <li>
+                            <h4>Posible solución:</h4>
+                            <p>Verifica que estás utilizando la función de organizar correctamente. Si encuentras  dificultades, sigue los pasos detallados en la guía de ayuda sobre cómo organizar tus  fotos en álbumes.</p>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+        <div class="linea-divisoria baja"></div>
+    </div>
+
+    <div id="interfaz6" style="display: none;">
+        <!-- Contenido de la interfaz 6 -->
+        <div class="div-superior">
+            <h2 class="titulo-interfaz6">Programación de contenido</h2>
+            <div class="volver6" onclick="volverInterfaz6()">&#8592 Volver</div>
+        </div>
+        <div id="calendario-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Lun</th>
+                        <th>Mar</th>
+                        <th>Mié</th>
+                        <th>Jue</th>
+                        <th>Vie</th>
+                        <th>Sáb</th>
+                        <th>Dom</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>10</td>
+                        <td>11</td>
+                        <td>12</td>
+                        <td>13</td>
+                        <td>14</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>16</td>
+                        <td>17</td>
+                        <td>18</td>
+                        <td>19</td>
+                        <td>20</td>
+                        <td>21</td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>23</td>
+                        <td>24</td>
+                        <td>25</td>
+                        <td>26</td>
+                        <td>27</td>
+                        <td>28</td>
+                    </tr>
+                    <tr>
+                        <td>29</td>
+                        <td>30</td>
+                        <td>31</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="notas">NOTAS: <textarea></textarea></div>
+
+        <img src="./img/icono-camara.PNG" alt="Camara" class="icono-camara6" onclick="seleccionarIcono('camara')">
+        <img src="./img/icono-video.PNG" alt="Video" class="icono-video" onclick="seleccionarIcono('video')">
+    </div>
+
+    <div id="interfaz7" style="display: none;">
+        <!-- Contenido de la interfaz 7 -->
+        <div class="titulo-volver">
+            <div class="titulo-interfaz7">Colaboración y Comentarios</div>
+            <div class="volver7" onclick="volverInterfaz7()">&#8592 Volver</div>
+        </div>
+        <div class="linea-divisoria7"></div>
+
+        <div class="contenedor-principal">
+            <div class="contenedor-chat" onclick="cambiarPlaceholder('Inicia el chat en línea...', this)"
+                data-placeholder="Inicia el chat en línea...">
+                <label class="label">Chat en línea</label>
+                <div class="contenedores7"><span></span></div>
+            </div>
+
+            <div class="contenedor-chat" onclick="cambiarPlaceholder('Deja un comentario...', this)"
+                data-placeholder="Deja un comentario...">
+                <label class="label">Comentarios</label>
+                <div class="contenedores7"><span></span></div>
+            </div>
+        </div>
+
+        <div class="contenedor-escriba">
+            <input type="text" id="escriba" class="input-text" placeholder="Seleccione donde quiere escribir...">
+            <input type="file" accept="image/*" id="inputCamara" style="display: none;">
+            <img src="./img/camara.PNG" alt="Cámara" id="camara" class="icon"
+                onclick="document.getElementById('inputCamara').click();">
+            <img src="./img/emoji.PNG" alt="Emoji" id="emoji" class="icon icon-emoji" onclick="agregarTexto('😊')">
+        </div>
+    </div>
+
+    <div id="interfaz8" style="display: none;">
+        <!-- Contenido de la interfaz 8 -->
+        <div class="titulo-volver8">
+            <div class="titulo-interfaz8">Biblioteca Multimedia</div>
+            <div class="volver8" onclick="volverInterfaz8()">&#8592 Volver</div>
+        </div>
+        <div class="linea-divisoria8"></div>
+
+        <div class="Album" onclick="abrirMultimedia('fotos')">
+            <h2>Álbum fotos</h2>
+            <input type="file" accept="image/*" id="abrir-fotos" style="display: none;">
+            <div class="contenedor-fotos"><img src="./img/photo.PNG" alt=""></div>
+        </div>
+
+        <div class="Album" onclick="abrirMultimedia('videos')">
+            <h2>Álbum videos</h2>
+            <input type="file" accept="video/*" id="abrir-videos" style="display: none;">
+            <div class="contenedor-videos"><img src="./img/video.PNG" alt=""></div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
